@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active{
+            color: red;
+        }
+        table{
+            border: 1px solid black;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        th,td{
+            padding: 8px 16px;
+            border: 1px solid black;
+            text-align: left;
+        }
+        th{
+            background-color: #f7f7f7;
+            color: black;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='message'>
+        <button @click='input'>提交</button>
+        <!-- <p>{{message}}</p> -->
+        <h1>未完成的任务</h1>
+        <table v-if='events.length'> 
+           <thead>
+            <tr>
+                <th>目标</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+           </thead>
+           <tbody>
+            <tr v-for='(event,index) in events'v-if='!event.state'>
+                <th><span :class=['active']>{{event.massage}}</span></th>
+                <th><button @click='changestate(index)'>未完成</button></th>
+                <th><button @click='removeevent(index)'>删除</button></th>
+            </tr>
+           </tbody>
+        </table>
+        <p v-else>您没有制定任何计划</p>
+        <h1>已完成的任务</h1>
+        <table v-if='events.length'> 
+            <thead>
+             <tr>
+                 <th>目标</th>
+                 <th>状态</th>
+                 <th>操作</th>
+             </tr>
+            </thead>
+            <tbody>
+             <tr v-for='(event,index) in events'v-if='event.state'>
+                 <th><span>{{event.massage}}</span></th>
+                 <th><button @click='changestate(index)'>未完成</button></th>
+                 <th><button @click='removeevent(index)'>删除</button></th>
+             </tr>
+            </tbody>
+         </table>
+         <p v-else>您没有制定任何计划</p>
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
