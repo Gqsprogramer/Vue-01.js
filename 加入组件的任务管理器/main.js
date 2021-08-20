@@ -1,0 +1,53 @@
+const app=new Vue({
+    el:'#app',
+    data:{
+        massage:'',
+        events:[]
+    },
+    components:{
+        cpn1:{
+            template:"#cpn1",
+            props:{
+                cevents:Array
+            },
+            methods:{
+                cpnchangestate(index){
+                    this.$emit('statechange',index)
+                },
+                cpnremoveevent(index){
+                    this.$emit('removeevent',index)
+                }
+            }
+        },
+        cpn2:{
+            template:'#cpn2',
+            props:{
+                cevents:Array
+            },
+            methods:{
+                cpnchangestate(index){
+                    this.$emit('statechange',index)
+                },
+                cpnremoveevent(index){
+                    this.$emit('removeevent',index)
+                }
+            }
+        }
+    },
+    methods:{
+        inputevent(){
+            // console.log(this.massage)
+            this.events.push({
+                state:false,
+                massage:this.massage
+            })
+            // console.log(this.events)
+        },
+        statechange(index){
+            this.events[index].state=!this.events[index].state
+        },
+        removeevent(index){
+            this.events.splice(index,1)
+        }
+    }
+})
